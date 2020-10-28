@@ -4,12 +4,6 @@ using namespace std;
 
 #define ll long long
 
-ll getMed(vector<int> arr,int i, int k){
-	ll med = 0;
-	//find median code
-	return med;
-
-}
 
 int main(){
 	ll n,k;
@@ -19,10 +13,18 @@ int main(){
 	{
 		cin>>a[i];
 	}
-	sort(a.begin(),a.begin()+k);
-	ll median_index = k/2-(k%2!=0);
-	cout<<a[median_index]<<" ";
-	for(int i=1;i+k<n;i++){
-		cout<<getMed(arr,i,k);
+	multiset<ll> ms;
+	for(int i =0;i<k;i++){
+		ms.insert(a[i]);
+	}
+	ll median_index = k/2-(k%2==0);
+
+	multiset<ll>::iterator it = ms.begin();
+	cout<<*next(it,median_index)<<" ";
+	for(int i=1;i+k-1<n;i++){
+		ms.erase(ms.lower_bound(a[i-1]));
+		ms.insert(a[i+k-1]);
+		multiset<ll>::iterator it = ms.begin();
+		cout<<*next(it,median_index)<<" ";
 	}
 }
